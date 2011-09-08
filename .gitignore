@@ -1,0 +1,4 @@
+*.log
+*.log.*.gz
+*.pid
+config/share.yml

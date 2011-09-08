@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "share-linuxfr"
+require "daemons"
+
+options = {
+  backtrace:  true,
+  app_name:   "share-linuxfr",
+  dir_mode:   :script,
+  dir:        ".",
+  log_output: true
+}
+
+config = File.read("share.yml")
+Daemons.daemonize(options)
+ShareLinuxFr.run(config)

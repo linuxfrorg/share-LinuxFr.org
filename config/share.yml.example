@@ -1,0 +1,16 @@
+base_url: "http://linuxfr.org/news/"
+redis: "redis://localhost:6379/0"
+twitter:
+  url: "http://api.twitter.com/1/statuses/update.json"
+  oauth:
+    consumer_key:        "xxx"
+    consumer_secret:     "xxx"
+    access_token:        "xxx"
+    access_token_secret: "xxx"
+identica:
+  url: "http://identi.ca/api/1/statuses/update.json"
+  oauth:
+    consumer_key:        "xxx"
+    consumer_secret:     "xxx"
+    access_token:        "xxx"
+    access_token_secret: "xxx"
