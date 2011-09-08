@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "share-linuxfr"
+require "yaml"
 require "daemons"
 
 options = {
@@ -11,6 +12,6 @@ options = {
   log_output: true
 }
 
-config = File.read("share.yml")
+config = YAML.load_file("share.yml")
 Daemons.daemonize(options)
 ShareLinuxFr.run(config)

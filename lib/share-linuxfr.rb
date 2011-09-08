@@ -10,9 +10,10 @@ class ShareLinuxFr
   autoload :VERSION, "share-linuxfr/version"
 
   def self.run(config)
-    config = Yajl::Parser.parse(config)
-    instance = self.new(config)
-    instance.start
+    EM.run do
+      instance = self.new(config)
+      instance.start
+    end
   end
 
   def initialize(config)
@@ -34,8 +35,8 @@ class ShareLinuxFr
   def tweet(news)
     conn = EventMachine::HttpRequest.new(@twitter['url'])
     conn.use EventMachine::Middleware::OAuth, @twitter['oauth']
-    title  = news[:title].slice(0, 115)
-    status = "#{title}#{'…' if title != news[:title]}#{@base_url}#{news[:slug]}"
+    title  = news['title'].slice(0, 115)
+    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['slug']}"
     http = conn.post :body => {:status => status}
     http.callback { puts "Tweet OK: #{status}" }
     http.errback  { puts "Tweet error #{http.response} for: #{status}" }
@@ -44,8 +45,8 @@ class ShareLinuxFr
   def dent(news)
     conn = EventMachine::HttpRequest.new(@identica['url'])
     conn.use EventMachine::Middleware::OAuth, @identica['oauth']
-    title  = news[:title].slice(0, 105)
-    status = "#{title}#{'…' if title != news[:title]}#{@base_url}#{news[:id]}"
+    title  = news['title'].slice(0, 105)
+    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
     http = conn.post :body => {:status => status}
     http.callback { puts "Dent OK: #{status}" }
     http.errback  { puts "Dent error #{http.response} for: #{status}" }
