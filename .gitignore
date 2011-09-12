@@ -3,4 +3,4 @@
 *.output
 *.output.*.gz
 *.pid
-share.yml
+*.yml

@@ -12,6 +12,7 @@ options = {
   log_output: true
 }
 
-config = YAML.load_file("share.yml")
-Daemons.daemonize(options)
-ShareLinuxFr.run(config)
+config = YAML.load_file("twitter.yml")
+Daemons.daemonize options
+ShareLinuxFr.configure config
+ShareLinuxFr.run config['base_url']

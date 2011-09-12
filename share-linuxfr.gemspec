@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
   s.require_paths    = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.add_dependency "daemons", "~>1.1"
-  s.add_dependency "em-hiredis", "~>0.1"
-  s.add_dependency "em-http-request", "~>1.0"
+  s.add_dependency "redis", "~>2.2"
   s.add_dependency "yajl-ruby", "~>0.8"
-  s.add_dependency "simple_oauth", "~>0.1"
+  s.add_dependency "twitter", "~>1.7"
 end
