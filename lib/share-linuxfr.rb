@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "net/http"
 require "redis"
 require "twitter"
 require "yajl"
@@ -13,7 +14,7 @@ class ShareLinuxFr
     instance.start
   end
 
-  def self.configure(options)
+  def self.configure_twitter(options)
     Twitter.configure do |config|
       config.endpoint           = options['endpoint']
       config.consumer_key       = options['consumer_key']
@@ -21,6 +22,11 @@ class ShareLinuxFr
       config.oauth_token        = options['access_token']
       config.oauth_token_secret = options['access_token_secret']
     end
+  end
+
+  def self.configure_identica(options)
+    @@identica = options
+    @@identica['uri'] = URI.parse("#{@@identica['endpoint']}/statuses/update.xml")
   end
 
   def initialize(base_url)
@@ -31,7 +37,9 @@ class ShareLinuxFr
   def start
     @redis.subscribe("news") do |on|
       on.message do |chan,message|
-        tweet Yajl::Parser.parse(message)
+        msg = Yajl::Parser.parse(message)
+        tweet msg
+        dent msg
       end
     end
   end
@@ -40,6 +48,16 @@ class ShareLinuxFr
     title  = news['title'].slice(0, 115)
     status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['slug']}"
     Twitter.update status
+  end
+
+  def dent(news)
+    title  = news['title'].slice(0, 105)
+    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
+    http = Net::HTTP.new(@@identica['uri'].host, @@identica['uri'].port)
+    req = Net::HTTP::Post.new(@@identica['uri'].path)
+    req.set_form_data 'status' => status
+    req.basic_auth @@identica['username'], @@identica['password']
+    res = http.request req
   end
 
 end
