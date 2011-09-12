@@ -14,7 +14,7 @@ How to use it?
     $ gem install share-linuxfr
     $ mkdir share-linuxfr && cd share-linuxfr
     $ vim share.yml
-    $ share-linuxfr
+    $ share-linuxfr share.yml
 
 For the config file, see
 [the example](http://github.com/nono/share-LinuxFr.org/config/share.yml.example).

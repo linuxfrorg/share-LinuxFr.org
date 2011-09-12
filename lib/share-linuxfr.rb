@@ -38,6 +38,7 @@ class ShareLinuxFr
     @redis.subscribe("news") do |on|
       on.message do |chan,message|
         msg = Yajl::Parser.parse(message)
+        puts "Publish a new message: #{msg.inspect}"
         tweet msg
         dent msg
       end
@@ -48,6 +49,8 @@ class ShareLinuxFr
     title  = news['title'].slice(0, 115)
     status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['slug']}"
     Twitter.update status
+  rescue => err
+    puts "Error on twitter: #{err}"
   end
 
   def dent(news)
@@ -58,6 +61,8 @@ class ShareLinuxFr
     req.set_form_data 'status' => status
     req.basic_auth @@identica['username'], @@identica['password']
     res = http.request req
+  rescue => err
+    puts "Error on identica: #{err}"
   end
 
 end
