@@ -51,6 +51,7 @@ class ShareLinuxFr
     Twitter.update status
   rescue => err
     puts "Error on twitter: #{err}"
+    puts "\tstatus = #{status.inspect}"
   end
 
   def dent(news)
@@ -63,6 +64,7 @@ class ShareLinuxFr
     res = http.request req
   rescue => err
     puts "Error on identica: #{err}"
+    puts "\tstatus = #{status.inspect}"
   end
 
 end

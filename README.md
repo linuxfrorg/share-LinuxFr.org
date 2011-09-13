@@ -5,7 +5,6 @@ When a news is published on LinuxFr.org, this daemon will share it on:
 
 - twitter
 - identi.ca
-- google buzz (not yet)
 
 
 How to use it?
@@ -17,7 +16,7 @@ How to use it?
     $ share-linuxfr share.yml
 
 For the config file, see
-[the example](http://github.com/nono/share-LinuxFr.org/config/share.yml.example).
+[the example](https://github.com/nono/share-LinuxFr.org/blob/master/config/share.yml.example).
 
 
 See also
