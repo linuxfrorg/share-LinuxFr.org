@@ -11,7 +11,10 @@ class ShareLinuxFr
 
   def self.run(base_url)
     instance = self.new(base_url)
-    instance.start
+    loop do
+      instance.start
+      sleep 1
+    end
   end
 
   def self.configure_twitter(options)
@@ -43,6 +46,8 @@ class ShareLinuxFr
         dent msg
       end
     end
+  rescue Errno::ECONNREFUSED => err
+    $stderr.puts "Connection to redis has been lost"
   end
 
   def tweet(news)
