@@ -52,7 +52,7 @@ class ShareLinuxFr
 
   def tweet(news)
     title  = news['title'].slice(0, 115)
-    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['slug']}"
+    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
     Twitter.update status
   rescue => err
     puts "Error on twitter: #{err}"
