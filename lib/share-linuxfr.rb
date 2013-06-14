@@ -19,7 +19,6 @@ class ShareLinuxFr
 
   def self.configure_twitter(options)
     Twitter.configure do |config|
-      config.endpoint           = options['endpoint']
       config.consumer_key       = options['consumer_key']
       config.consumer_secret    = options['consumer_secret']
       config.oauth_token        = options['access_token']

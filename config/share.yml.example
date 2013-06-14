@@ -1,6 +1,5 @@
 base_url: "http://linuxfr.org/news/"
 twitter:
-  endpoint: "https://api.twitter.com/"
   consumer_key:        "xxx"
   consumer_secret:     "xxx"
   access_token:        "xxx"
