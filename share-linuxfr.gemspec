@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name             = "share-linuxfr"
   s.version          = ShareLinuxFr::VERSION
   s.date             = Time.now.utc.strftime("%Y-%m-%d")
-  s.homepage         = "http://github.com/nono/share-LinuxFr.org"
+  s.homepage         = "https://github.com/linuxfrorg/share-LinuxFr.org"
   s.authors          = "Bruno Michel"
   s.email            = "nono@linuxfr.org"
   s.description      = "Share the publication of news on social networks"

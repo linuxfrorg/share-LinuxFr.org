@@ -16,13 +16,13 @@ How to use it?
     $ share-linuxfr share.yml
 
 For the config file, see
-[the example](https://github.com/nono/share-LinuxFr.org/blob/master/config/share.yml.example).
+[the example](https://github.com/linuxfrorg/share-LinuxFr.org/blob/master/config/share.yml.example).
 
 
 See also
 --------
 
-* [Git repository](http://github.com/nono/share-LinuxFr.org)
+* [Git repository](https://github.com/linuxfrorg/share-LinuxFr.org)
 
 
 Copyright
