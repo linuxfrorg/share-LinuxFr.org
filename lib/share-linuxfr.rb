@@ -26,11 +26,6 @@ class ShareLinuxFr
     end
   end
 
-  def self.configure_identica(options)
-    @@identica = options
-    @@identica['uri'] = URI.parse("#{@@identica['endpoint']}/statuses/update.xml")
-  end
-
   def initialize(base_url)
     @redis = Redis.new
     @base_url = base_url
@@ -42,7 +37,6 @@ class ShareLinuxFr
         msg = Yajl::Parser.parse(message)
         puts "Publish a new message: #{msg.inspect}"
         tweet msg
-        dent msg
       end
     end
   rescue Errno::ECONNREFUSED => err
@@ -55,19 +49,6 @@ class ShareLinuxFr
     Twitter.update status
   rescue => err
     puts "Error on twitter: #{err}"
-    puts "\tstatus = #{status.inspect}"
-  end
-
-  def dent(news)
-    title  = news['title'].slice(0, 105)
-    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
-    http = Net::HTTP.new(@@identica['uri'].host, @@identica['uri'].port)
-    req = Net::HTTP::Post.new(@@identica['uri'].path)
-    req.set_form_data 'status' => status
-    req.basic_auth @@identica['username'], @@identica['password']
-    res = http.request req
-  rescue => err
-    puts "Error on identica: #{err}"
     puts "\tstatus = #{status.inspect}"
   end
 

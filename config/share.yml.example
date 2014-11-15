@@ -4,7 +4,3 @@ twitter:
   consumer_secret:     "xxx"
   access_token:        "xxx"
   access_token_secret: "xxx"
-identica:
-  endpoint: "http://identi.ca/api/"
-  username: "linuxfrorg"
-  password: "xxx"
