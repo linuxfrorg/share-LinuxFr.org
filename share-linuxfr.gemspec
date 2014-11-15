@@ -13,9 +13,8 @@ Gem::Specification.new do |s|
   s.files            = Dir["LICENSE", "README.md", "Gemfile", "bin/*", "lib/**/*.rb", "config/*"]
   s.executables      = ["share-linuxfr"]
   s.require_paths    = ["lib"]
-  s.rubygems_version = %q{1.3.7}
   s.add_dependency "daemons", "~>1.1"
-  s.add_dependency "redis", "~>2.2"
-  s.add_dependency "yajl-ruby", "~>1.1"
-  s.add_dependency "twitter", "~>4.0"
+  s.add_dependency "redis", "~>3.0"
+  s.add_dependency "yajl-ruby", "~>1.2"
+  s.add_dependency "twitter", "~>5.13"
 end

@@ -18,11 +18,11 @@ class ShareLinuxFr
   end
 
   def self.configure_twitter(options)
-    Twitter.configure do |config|
-      config.consumer_key       = options['consumer_key']
-      config.consumer_secret    = options['consumer_secret']
-      config.oauth_token        = options['access_token']
-      config.oauth_token_secret = options['access_token_secret']
+    @client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = options['consumer_key']
+      config.consumer_secret     = options['consumer_secret']
+      config.access_token        = options['access_token']
+      config.access_token_secret = options['access_token_secret']
     end
   end
 
@@ -46,7 +46,7 @@ class ShareLinuxFr
   def tweet(news)
     title  = news['title'].slice(0, 115)
     status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
-    Twitter.update status
+    @client.update status
   rescue => err
     puts "Error on twitter: #{err}"
     puts "\tstatus = #{status.inspect}"
