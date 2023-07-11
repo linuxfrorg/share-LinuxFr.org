@@ -1,0 +1,23 @@
+---
+services:
+
+  linuxfr-share:
+    image: share-linuxfr.org:latest
+    build:
+      context: .
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - /tmp/config:/home/app/config
+      - /tmp/log:/home/app/log
+
+  redis:
+    image: redis:5
+    volumes:
+      - data-redis:/data
+
+volumes:
+  data-redis:
+    driver: local

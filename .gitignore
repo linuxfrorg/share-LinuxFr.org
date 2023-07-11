@@ -4,3 +4,10 @@
 *.output.*.gz
 *.pid
 *.yml
+*.swp
+*.gem
+*.tar
+config/*.yml
+.bundle/
+vendor/
+TODO

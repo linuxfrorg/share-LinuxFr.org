@@ -1,0 +1,13 @@
+.git/
+.bundle/
+*.swp
+*/*.swp
+*.gem
+*.tar
+*.log
+*.output
+*/*.log
+*/*.output
+config/share.yml
+vendor/
+TODO

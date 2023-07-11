@@ -3,16 +3,30 @@
 require "share-linuxfr"
 require "yaml"
 require "daemons"
+require "optparse"
 
 options = {
-  backtrace:  true,
-  app_name:   "share-linuxfr",
-  dir_mode:   :script,
-  dir:        ".",
-  log_output: true
+  #daemons
+  backtrace:          true,
+  app_name:           "share-linuxfr",
+  dir_mode:           :script,
+  dir:                ".",
+  log_output:         true,
+  logfilename:        "share-linuxfr.log",
+  output_logfilename: "share-linuxfr.output",
+  #misc
+  config:             "share.yml"
 }
 
-config = YAML.load_file("share.yml")
+OptionParser.new do |opt|
+  opt.on('-c', '--config CONFIG_YML') { |o| options[:config] = o }
+  opt.on('-l', '--log LOGFILE') { |o| options[:logfilename] = o }
+  opt.on('-o', '--output OUTPUTFILE') { |o| options[:output_logfilename] = o }
+end.parse!
+
+config = YAML.load_file(options[:config])
 Daemons.daemonize options
+
 ShareLinuxFr.configure_twitter config['twitter']
+ShareLinuxFr.configure_bsky config['bsky']
 ShareLinuxFr.run config['base_url']

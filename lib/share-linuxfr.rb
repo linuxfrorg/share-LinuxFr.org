@@ -4,7 +4,7 @@ require "net/http"
 require "redis"
 require "twitter"
 require "yajl"
-
+require "bskyrb"
 
 class ShareLinuxFr
   autoload :VERSION, "share-linuxfr/version"
@@ -26,6 +26,12 @@ class ShareLinuxFr
     end
   end
 
+  def self.configure_bsky(options)
+    credentials = Bskyrb::Credentials.new(options['username'], options['password'])
+    session = Bskyrb::Session.new(credentials, options['pds_url'])
+    @@bsky = Bskyrb::RecordManager.new(session)
+  end
+
   def initialize(base_url)
     @redis = Redis.new
     @base_url = base_url
@@ -37,6 +43,7 @@ class ShareLinuxFr
         msg = Yajl::Parser.parse(message)
         puts "Publish a new message: #{msg.inspect}"
         tweet msg
+        post msg
       end
     end
   rescue Errno::ECONNREFUSED => err
@@ -49,6 +56,15 @@ class ShareLinuxFr
     @@client.update status
   rescue => err
     puts "Error on twitter: #{err}"
+    puts "\tstatus = #{status.inspect}"
+  end
+
+  def post(news)
+    title  = news['title'].slice(0, 115)
+    status = "#{title}#{'…' if title != news['title']} #{@base_url}#{news['id']}"
+    post_uri = @@bsky.create_post(status)["uri"]
+  rescue => err
+    puts "Error on bsky: #{err}"
     puts "\tstatus = #{status.inspect}"
   end
 

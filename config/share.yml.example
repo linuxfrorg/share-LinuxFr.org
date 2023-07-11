@@ -1,6 +1,10 @@
-base_url: "http://linuxfr.org/news/"
+base_url: "https://linuxfr.org/news/"
 twitter:
   consumer_key:        "xxx"
   consumer_secret:     "xxx"
   access_token:        "xxx"
   access_token_secret: "xxx"
+bsky:
+  username: "xxx"
+  password: "xxx"
+  pds_url:  "https://bsky.social"
